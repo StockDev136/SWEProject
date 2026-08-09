@@ -1,0 +1,21 @@
+/* eRegistrar - small overrides on top of Bootswatch Cerulean */
+
+body {
+    padding-bottom: 3em;
+}
+
+.home-card {
+    transition: box-shadow 0.15s ease-in-out;
+}
+
+.home-card:hover {
+    box-shadow: 0 0.25rem 0.75rem rgba(111, 47, 168, 0.25);
+}
+
+.table thead th {
+    vertical-align: middle;
+}
+
+.form-group label {
+    font-weight: 600;
+}

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="author" content="Orion Blackstock">
+    <link rel="icon" href="favicon.ico">
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.2/cerulean/bootstrap.min.css" rel="stylesheet" integrity="sha384-EmRcsPP774S9MOi4ywB+JXUWjYnBdyInMzG2XsC5siZEUpexqxOMJW358dCYEjPu" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/master.css}">
+    <title>eRegistrar - Student Registration System</title>
+    <style>
+        :root {
+            --eregistrar-purple: #6f2fa8;
+            --eregistrar-purple-dark: #4b1d73;
+        }
+        .navbar.bg-primary { background-color: var(--eregistrar-purple) !important; }
+        .btn-primary { background-color: var(--eregistrar-purple); border-color: var(--eregistrar-purple); }
+        a { color: var(--eregistrar-purple); }
+        .navbar-dark .nav-link, .navbar-dark .navbar-brand { color: #ffffff; }
+        .navbar-dark .nav-link:hover { color: #e6d9f5; }
+        h3 { color: var(--eregistrar-purple-dark); }
+        hr { border-top: 2px solid var(--eregistrar-purple); }
+        .home-card { border-top: 4px solid var(--eregistrar-purple); height: 100%; }
+        .home-card .card-title { color: var(--eregistrar-purple-dark); }
+    </style>
+</head>
+<body>
+<nav th:replace="~{fragments/navbar :: navbar}"></nav>
+
+<p>&nbsp;</p>
+<div class="container">
+    <h3>Welcome to the eRegistrar Student Registration System</h3>
+    <hr/>
+    <p>
+        eRegistrar helps the registrar's office keep student records straight - one place to see who is enrolled,
+        add new, edit, or remove a student record entirely. Pick a task from the menu above,
+        or one of the shortcuts below.
+    </p>
+
+    <div class="row" style="margin-top: 2em;">
+        <div class="col-md-4" style="margin-bottom: 1.5em;">
+            <div class="card home-card">
+                <div class="card-body">
+                    <h5 class="card-title">Student List</h5>
+                    <p class="card-text">Browse every student currently registered, with their number, name, CGPA, enrollment date, and international status.</p>
+                    <a href="/eregistrar/student/list" class="btn btn-primary">View List</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4" style="margin-bottom: 1.5em;">
+            <div class="card home-card">
+                <div class="card-body">
+                    <h5 class="card-title">Register a Student</h5>
+                    <p class="card-text">Add a brand-new student to the system with a short registration form.</p>
+                    <a href="/eregistrar/student/register" class="btn btn-primary">Register New Student</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4" style="margin-bottom: 1.5em;">
+            <div class="card home-card">
+                <div class="card-body">
+                    <h5 class="card-title">Search</h5>
+                    <p class="card-text">Look up a student by number, first name, or last name using the search box in the navbar.</p>
+                    <a href="/eregistrar/student/list" class="btn btn-outline-primary">Go to Search</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+</body>
+</html>

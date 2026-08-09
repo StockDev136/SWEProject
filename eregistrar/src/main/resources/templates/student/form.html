@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.2/cerulean/bootstrap.min.css" rel="stylesheet" integrity="sha384-EmRcsPP774S9MOi4ywB+JXUWjYnBdyInMzG2XsC5siZEUpexqxOMJW358dCYEjPu" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/master.css}">
+    <title th:text="${editMode} ? 'eRegistrar - Edit Student' : 'eRegistrar - Register Student'">eRegistrar</title>
+    <style>
+        :root { --eregistrar-purple: #6f2fa8; --eregistrar-purple-dark: #4b1d73; }
+        .navbar.bg-primary { background-color: var(--eregistrar-purple) !important; }
+        .btn-primary { background-color: var(--eregistrar-purple); border-color: var(--eregistrar-purple); }
+        a { color: var(--eregistrar-purple); }
+        .navbar-dark .nav-link, .navbar-dark .navbar-brand { color: #ffffff; }
+        .navbar-dark .nav-link:hover { color: #e6d9f5; }
+        h3 { color: var(--eregistrar-purple-dark); }
+        hr { border-top: 2px solid var(--eregistrar-purple); }
+    </style>
+</head>
+<body>
+<nav th:replace="~{fragments/navbar :: navbar}"></nav>
+
+<p>&nbsp;</p>
+<div class="container">
+    <h3 th:text="${editMode} ? 'Edit Student' : 'Register New Student'">Register New Student</h3>
+    <hr/>
+
+    <form th:action="@{${formAction}}" th:object="${student}" method="post">
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="studentNumber">Student Number *</label>
+                <input type="text" class="form-control" id="studentNumber" th:field="*{studentNumber}"
+                       th:classappend="${#fields.hasErrors('studentNumber')} ? 'is-invalid'" placeholder="e.g. 000-61-0001">
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('studentNumber')}" th:errors="*{studentNumber}"></div>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="cgpa">CGPA</label>
+                <input type="number" step="0.01" min="0" max="4" class="form-control" id="cgpa" th:field="*{cgpa}"
+                       th:classappend="${#fields.hasErrors('cgpa')} ? 'is-invalid'" placeholder="e.g. 3.45">
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('cgpa')}" th:errors="*{cgpa}"></div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="firstName">First Name *</label>
+                <input type="text" class="form-control" id="firstName" th:field="*{firstName}"
+                       th:classappend="${#fields.hasErrors('firstName')} ? 'is-invalid'" placeholder="e.g. Anna">
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></div>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="middleName">Middle Name</label>
+                <input type="text" class="form-control" id="middleName" th:field="*{middleName}" placeholder="optional">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="lastName">Last Name *</label>
+                <input type="text" class="form-control" id="lastName" th:field="*{lastName}"
+                       th:classappend="${#fields.hasErrors('lastName')} ? 'is-invalid'" placeholder="e.g. Smith">
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="enrollmentDate">Enrollment Date *</label>
+                <input type="date" class="form-control" id="enrollmentDate" th:field="*{enrollmentDate}"
+                       th:classappend="${#fields.hasErrors('enrollmentDate')} ? 'is-invalid'">
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('enrollmentDate')}" th:errors="*{enrollmentDate}"></div>
+            </div>
+            <div class="form-group col-md-6">
+                <label class="d-block">International Student? *</label>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" th:field="*{international}" id="internationalYes" value="true">
+                    <label class="form-check-label" for="internationalYes">Yes</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" th:field="*{international}" id="internationalNo" value="false">
+                    <label class="form-check-label" for="internationalNo">No</label>
+                </div>
+                <div class="invalid-feedback d-block" th:if="${#fields.hasErrors('international')}" th:errors="*{international}"></div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" th:text="${editMode} ? 'Save Changes' : 'Register Student'">Register Student</button>
+        <a href="/eregistrar/student/list" class="btn btn-outline-secondary">Cancel</a>
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+</body>
+</html>

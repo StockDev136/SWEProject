@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.2/cerulean/bootstrap.min.css" rel="stylesheet" integrity="sha384-EmRcsPP774S9MOi4ywB+JXUWjYnBdyInMzG2XsC5siZEUpexqxOMJW358dCYEjPu" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/master.css}">
+    <title>eRegistrar - Student List</title>
+    <style>
+        :root { --eregistrar-purple: #6f2fa8; --eregistrar-purple-dark: #4b1d73; }
+        .navbar.bg-primary { background-color: var(--eregistrar-purple) !important; }
+        .btn-primary { background-color: var(--eregistrar-purple); border-color: var(--eregistrar-purple); }
+        a { color: var(--eregistrar-purple); }
+        .navbar-dark .nav-link, .navbar-dark .navbar-brand { color: #ffffff; }
+        .navbar-dark .nav-link:hover { color: #e6d9f5; }
+        h3 { color: var(--eregistrar-purple-dark); }
+        hr { border-top: 2px solid var(--eregistrar-purple); }
+        thead.thead-purple { background-color: var(--eregistrar-purple); color: #ffffff; }
+    </style>
+</head>
+<body>
+<nav th:replace="~{fragments/navbar :: navbar}"></nav>
+
+<p>&nbsp;</p>
+<div class="container">
+    <h3>Registered Students</h3>
+    <hr/>
+
+    <div class="alert alert-success" th:if="${message}" th:text="${message}"></div>
+    <div class="alert alert-danger" th:if="${error}" th:text="${error}"></div>
+
+    <div class="d-flex justify-content-between align-items-center" style="margin-bottom: 1em;">
+        <p class="mb-0" th:if="${query != null and !query.isEmpty()}">
+            Showing results for "<span th:text="${query}"></span>" - <a href="/eregistrar/student/list">clear search</a>
+        </p>
+        <p class="mb-0" th:unless="${query != null and !query.isEmpty()}">
+            <span th:text="${#lists.size(students)}"></span> student(s) registered.
+        </p>
+        <a href="/eregistrar/student/register" class="btn btn-primary">+ Register New Student</a>
+    </div>
+
+    <div th:if="${#lists.isEmpty(students)}" class="alert alert-info">
+        No students found.
+    </div>
+
+    <table class="table table-striped table-bordered" th:unless="${#lists.isEmpty(students)}">
+        <thead class="thead-purple">
+        <tr>
+            <th>#</th>
+            <th>Student Number</th>
+            <th>First Name</th>
+            <th>Middle Name</th>
+            <th>Last Name</th>
+            <th>CGPA</th>
+            <th>Enrollment Date</th>
+            <th>International</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="student : ${students}">
+            <td th:text="${student.studentId}"></td>
+            <td th:text="${student.studentNumber}"></td>
+            <td th:text="${student.firstName}"></td>
+            <td th:text="${student.middleName}"></td>
+            <td th:text="${student.lastName}"></td>
+            <td th:text="${student.cgpa != null ? student.cgpa : '-'}"></td>
+            <td th:text="${student.enrollmentDate}"></td>
+            <td th:text="${student.international != null and student.international ? 'Yes' : 'No'}"></td>
+            <td>
+                <a th:href="@{/eregistrar/student/edit/{id}(id=${student.studentId})}" class="btn btn-sm btn-outline-primary">Edit</a>
+                <a th:href="@{/eregistrar/student/delete/{id}(id=${student.studentId})}"
+                   class="btn btn-sm btn-outline-danger"
+                   onclick="return confirm('Delete this student? This cannot be undone.');">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+</body>
+</html>
